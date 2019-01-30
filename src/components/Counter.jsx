@@ -3,25 +3,34 @@ import counter from "./counter.css";
 
 class Counter extends Component {
   state = {
-    count: 1,
+    count: this.props.value,
+    selected: this.props.selected,
     image: "https://picsum.photos/200",
     // tags: ["tag1", "tage2", "tag3"]
 
-    tags: [],
-  
+    tags: [
+      { id: 1, value: 4 },
+
+      { id: 1, value: 0 },
+
+      { id: 1, value: 0 },
+
+      { id: 1, value: 0 }
+    ]
   };
 
   //whenever we need to pass the argument to the events we need to do this that way
 
   // () => handleIncrement({id : 1}) // and get it like this way handleIncrement= product =>{console.log(product)}
-  
+
   handleIncrement = product => {
     console.log(product);
 
-    this.setState({count : this.state.count+1})
+    this.setState({ count: this.state.count + 1 });
+    //passing childrens
+    // console.log(this.props.children.props.children);
     console.log("item is clicked", this.state.count);
-
-  }
+  };
 
   render() {
     //encapsulating the classes
@@ -31,13 +40,23 @@ class Counter extends Component {
         <span className={this.getBadgeClasses()}>{this.formateCount()}</span>
         <button
           className="btn btn-secondary m-2"
-          onClick={()=>this.handleIncrement({id : 1})}
+          onClick={() => this.handleIncrement({ id: 1 })}
           style={counter.counter}
         >
           Increment
         </button>
+
+        <button
+          className="btn btn-secondary m-2"
+          onClick={this.props.onIncrement}
+          style={counter.counter}
+        >
+          Increment/Rasing up and handling state
+        </button>
+
         {this.state.tags.length === 0 && "please create new tags!"}
         <ul>{this.renderTags()}</ul>
+        
       </div>
 
       //redering list or array above
